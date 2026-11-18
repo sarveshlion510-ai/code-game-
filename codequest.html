@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CodeQuest – Learn to code by playing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Outfit:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#1a0f3a;--panel:#2a1960;--panel2:#35217a;--ink:#f5f0ff;--mute:#b9a9e8;--pink:#ff5c8a;--sun:#ffd23f;--mint:#4be3ac;--sky:#5cc8ff;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Outfit,system-ui,sans-serif;line-height:1.55;
+background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:36px 36px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+header{display:flex;align-items:center;gap:20px;padding:18px 0;flex-wrap:wrap}
+.logo{font-family:Bungee,Impact,sans-serif;font-size:26px;color:var(--sun);text-shadow:3px 3px 0 var(--pink)}
+.stats{margin-left:auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.lvl{font-family:Bungee,Impact,sans-serif;font-size:14px;background:var(--sun);color:#2a1960;padding:4px 10px;border-radius:8px}
+.bar{width:160px;height:12px;background:var(--panel);border-radius:99px;overflow:hidden;border:2px solid var(--panel2)}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--sun));transition:width .5s}
+.hearts{font-size:20px;color:var(--pink);letter-spacing:2px}
+.hero{display:grid;grid-template-columns:1fr 1.15fr;gap:36px;align-items:center;padding:36px 0 28px}
+h1{font-family:Bungee,Impact,sans-serif;font-weight:400;font-size:clamp(34px,6vw,64px);line-height:1.05;margin:0 0 16px}
+h1 span{display:block;color:var(--mint)}
+.lead{color:var(--mute);font-size:18px;max-width:46ch;margin:0 0 24px}
+.cta{font-family:Bungee,Impact,sans-serif;font-size:16px;background:var(--pink);color:#fff;border:0;border-radius:12px;padding:14px 22px;cursor:pointer;box-shadow:0 5px 0 #b02f58;text-decoration:none;display:inline-block}
+.cta:active{transform:translateY(3px);box-shadow:0 2px 0 #b02f58}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.panel{background:var(--panel);border:3px solid var(--panel2);border-radius:20px;padding:20px;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:8px}
+.ph b{font-family:Bungee,Impact,sans-serif;font-weight:400;color:var(--sun);font-size:18px}
+.ph span{color:var(--mute);font-size:14px}
+.pr{margin:4px 0 14px;font-size:17px;font-weight:500}
+.code{background:#150b2e;border-radius:12px;padding:8px;margin-bottom:14px;overflow-x:auto}
+.ln{display:flex;gap:12px;align-items:center;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:6px 10px;color:var(--ink);cursor:default;font:inherit}
+.ln i{color:#7d6bb5;font-style:normal;font-family:'JetBrains Mono',monospace;font-size:13px;width:18px}
+.ln code{font-family:'JetBrains Mono',Consolas,monospace;font-size:15px;white-space:pre}
+.ln.click{cursor:pointer}.ln.click:hover{background:var(--panel2)}
+.ln.hit{background:rgba(75,227,172,.22);outline:2px solid var(--mint)}
+.ln.miss{background:rgba(255,92,138,.25);outline:2px solid var(--pink)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.opt{font-family:'JetBrains Mono',monospace;font-size:15px;background:var(--panel2);color:var(--ink);border:2px solid transparent;border-radius:12px;padding:12px;cursor:pointer;text-align:center}
+.opt:hover:not(:disabled){border-color:var(--sky)}
+.opt.hit{background:rgba(75,227,172,.25);border-color:var(--mint)}
+.opt.miss{background:rgba(255,92,138,.25);border-color:var(--pink)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.fb{border-radius:12px;padding:12px 14px;margin-bottom:12px;font-size:15px}
+.fb b{display:block;font-size:17px}
+.fb.ok{background:rgba(75,227,172,.16);border-left:5px solid var(--mint)}
+.fb.no{background:rgba(255,92,138,.16);border-left:5px solid var(--pink)}
+.pop{animation:pop .35s}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.02)}100%{transform:scale(1)}}
+.hint{color:var(--mute);font-size:14px;margin:0}
+.end{text-align:center;padding:18px 0}
+.end h3{font-family:Bungee,Impact,sans-serif;font-weight:400;font-size:26px;margin:0 0 8px;color:var(--mint)}
+h2{font-family:Bungee,Impact,sans-serif;font-weight:400;font-size:30px;margin:36px 0 6px}
+.sub{color:var(--mute);margin:0 0 20px}
+.worlds{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:48px}
+.world{text-align:left;background:var(--panel);border:3px solid var(--panel2);border-radius:18px;padding:16px;color:var(--ink);font:inherit;cursor:pointer;position:relative}
+.world:hover:not(:disabled){border-color:var(--c)}
+.world.on{border-color:var(--c);background:var(--panel2)}
+.world:disabled{opacity:.55;cursor:not-allowed}
+.world .em{font-size:34px}
+.world h3{font-family:Bungee,Impact,sans-serif;font-weight:400;font-size:17px;margin:6px 0 4px;color:var(--c)}
+.world p{margin:0;color:var(--mute);font-size:14px}
+.tag{position:absolute;top:12px;right:12px;font-size:12px;font-weight:700;background:var(--c);color:#1a0f3a;padding:2px 8px;border-radius:99px}
+footer{padding:24px 0 40px;color:var(--mute);font-size:14px;border-top:2px solid var(--panel)}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.worlds{grid-template-columns:1fr 1fr}.stats{margin-left:0}}
+@media(max-width:480px){.worlds,.opts{grid-template-columns:1fr}.bar{width:110px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">CodeQuest</div>
+    <div class="stats" aria-live="polite">
+      <span class="lvl" id="lvl">Level 1</span>
+      <div class="bar" role="progressbar" aria-label="Experience" aria-valuemin="0" aria-valuemax="200" id="barwrap"><i id="xpbar"></i></div>
+      <span id="xptxt">0 XP</span>
+      <span class="hearts" id="hearts" aria-label="Hearts left"></span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Learn to code <span>by playing.</span></h1>
+      <p class="lead">Read short Python snippets, hunt down bugs and predict what the code prints. Clear four worlds, earn XP and keep your hearts.</p>
+      <a class="cta" href="#game">Start playing</a>
+    </div>
+    <div class="panel" id="game" aria-live="polite"></div>
+  </section>
+
+  <h2>Pick a world</h2>
+  <p class="sub">Clear a world to unlock the next one.</p>
+  <div class="worlds" id="worlds"></div>
+
+  <footer>CodeQuest: 12 challenges, 4 worlds, 200 XP to collect.</footer>
+</div>
+
+<script>
+const W=[
+{n:"Variables Valley",e:"🌱",c:"#4be3ac",t:"Store values and change them.",q:[
+ {k:"out",p:"What does this code print?",code:"x = 5\ny = 3\nprint(x + y)",o:["8","53","15","Error"],a:0,why:"x + y adds two numbers, so 5 + 3 gives 8."},
+ {k:"bug",p:"One line crashes. Click the buggy line.",code:"name = \"Sam\"\nage = 18\nprint(\"Hi \" + age)",bug:2,why:"You can’t join text and a number with +. Use str(age) or an f-string."},
+ {k:"out",p:"What does this code print?",code:"a = 10\na = a - 4\nprint(a)",o:["10","4","6","a"],a:2,why:"a starts at 10, then becomes 10 - 4, which is 6."}]},
+{n:"Loop Lagoon",e:"🌊",c:"#5cc8ff",t:"Repeat work without repeating code.",q:[
+ {k:"out",p:"What does this code print?",code:"for i in range(3):\n    print(i)",o:["1 2 3","0 1 2","0 1 2 3","3"],a:1,why:"range(3) counts 0, 1, 2. It starts at 0 and stops before 3."},
+ {k:"bug",p:"This should add 1 + 2 + 3 but prints 3. Click the buggy line.",code:"total = 0\nfor n in [1, 2, 3]:\n    total = n\nprint(total)",bug:2,why:"total = n replaces the total each time. You need total += n to add to it."},
+ {k:"out",p:"What does this code print?",code:"s = 0\nfor i in range(1, 4):\n    s += i\nprint(s)",o:["3","10","6","4"],a:2,why:"i takes 1, 2, 3 and s adds them up: 1 + 2 + 3 = 6."}]},
+{n:"Function Forest",e:"🌲",c:"#ffd23f",t:"Package code you can reuse.",q:[
+ {k:"out",p:"What does this code print?",code:"def sq(n):\n    return n * n\nprint(sq(4))",o:["8","4","16","None"],a:2,why:"sq(4) returns 4 * 4, which is 16."},
+ {k:"bug",p:"print(add(2, 3)) shows None. Click the buggy line.",code:"def add(a, b):\n    result = a + b\nprint(add(2, 3))",bug:1,why:"The function never returns anything. Use return a + b so the answer comes back."},
+ {k:"out",p:"What does this code print?",code:"def hi(n=\"Sam\"):\n    return \"Hi \" + n\nprint(hi())",o:["Hi","Hi Sam","Error","Hi n"],a:1,why:"No argument was given, so n uses its default value, \"Sam\"."}]},
+{n:"Array Arena",e:"⚔️",c:"#ff5c8a",t:"Work with lists of items.",q:[
+ {k:"out",p:"What does this code print?",code:"nums = [4, 7, 9]\nprint(nums[1])",o:["4","7","9","1"],a:1,why:"List positions start at 0, so nums[1] is the second item: 7."},
+ {k:"bug",p:"This crashes with an IndexError. Click the buggy line.",code:"fruits = [\"apple\", \"mango\", \"kiwi\"]\nlast = fruits[3]\nprint(last)",bug:1,why:"The list has positions 0, 1, 2. Use fruits[2] or fruits[-1] for the last item."},
+ {k:"out",p:"What does this code print?",code:"a = [1, 2]\na.append(3)\nprint(len(a))",o:["2","3","4","[1, 2, 3]"],a:1,why:"append adds 3 to the list, making [1, 2, 3]. Its length is 3."}]}
+];
+const s={xp:0,hp:3,w:0,i:0,st:"play",pick:null,done:[0,0,0,0]};
+const $=id=>document.getElementById(id);
+const esc=t=>t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const open=w=>w==0||s.done[w-1];
+
+function ans(v){
+  const q=W[s.w].q[s.i];
+  if(s.st!="play")return;
+  s.pick=v;
+  const ok=q.k=="bug"?v==q.bug:v==q.a;
+  if(ok){s.xp+=10;s.st="right"}else{s.hp--;s.st=s.hp<=0?"dead":"wrong"}
+  draw();
+}
+function nextQ(){
+  if(s.i<2){s.i++;s.st="play";s.pick=null}
+  else{s.done[s.w]=1;s.xp+=20;s.st="won"}
+  draw();
+}
+function retry(){s.st="play";s.pick=null;draw()}
+function restartWorld(){s.hp=3;s.i=0;s.st="play";s.pick=null;draw()}
+function goWorld(w){if(!open(w))return;s.w=w;s.i=0;s.hp=3;s.st="play";s.pick=null;draw()}
+function playAgain(){s.xp=0;s.done=[0,0,0,0];goWorld(0)}
+
+function panel(){
+  const w=W[s.w],q=w.q[s.i];
+  if(s.st=="won"){
+    const last=s.w==3;
+    return `<div class="end pop"><h3>${w.n} cleared!</h3><p>You earned a 20 XP bonus. ${last?"You finished every world. Nice work.":"Next up: "+W[s.w+1].n+"."}</p>
+    <button class="cta" onclick="${last?"playAgain()":"goWorld("+(s.w+1)+")"}">${last?"Play again":"Enter next world"}</button></div>`;
+  }
+  if(s.st=="dead"){
+    return `<div class="end pop"><h3 style="color:var(--pink)">Out of hearts</h3><p>${esc(q.why)}</p><button class="cta" onclick="restartWorld()">Restart ${w.n}</button></div>`;
+  }
+  const play=s.st=="play",bug=q.k=="bug";
+  let h=`<div class="ph"><b>${w.n}</b><span>Challenge ${s.i+1} of 3</span></div><p class="pr">${q.p}</p><div class="code">`;
+  h+=q.code.split("\n").map((l,n)=>{
+    let c="ln";
+    if(bug&&play)c+=" click";
+    if(bug&&!play){if(n==q.bug)c+=" hit";else if(n==s.pick)c+=" miss"}
+    return `<button class="${c}" ${bug&&play?`onclick="ans(${n})"`:"disabled"}><i>${n+1}</i><code>${esc(l)}</code></button>`;
+  }).join("")+`</div>`;
+  if(!bug){
+    h+=`<div class="opts">`+q.o.map((o,n)=>{
+      let c="opt";
+      if(!play){if(n==q.a)c+=" hit";else if(n==s.pick)c+=" miss"}
+      return `<button class="${c}" ${play?`onclick="ans(${n})"`:"disabled"}>${esc(o)}</button>`;
+    }).join("")+`</div>`;
+  }
+  if(play){h+=`<p class="hint">${bug?"Click the line you think is wrong.":"Pick the output you expect."}</p>`}
+  else if(s.st=="right"){h+=`<div class="fb ok pop"><b>Correct! +10 XP</b>${esc(q.why)}</div><button class="cta" onclick="nextQ()">${s.i<2?"Next challenge":"Finish world"}</button>`}
+  else{h+=`<div class="fb no pop"><b>Not quite. You lost a heart.</b>${esc(q.why)}</div><button class="cta" onclick="retry()">Try again</button>`}
+  return h;
+}
+
+function draw(){
+  $("game").innerHTML=panel();
+  $("worlds").innerHTML=W.map((w,n)=>{
+    const o=open(n);
+    return `<button class="world${n==s.w?" on":""}" style="--c:${w.c}" ${o?"":"disabled"} onclick="goWorld(${n})" aria-label="${w.n}${o?"":", locked"}">
+    <span class="tag">${s.done[n]?"Cleared":o?"Open":"Locked"}</span><div class="em">${o?w.e:"🔒"}</div><h3>${w.n}</h3><p>${w.t}</p></button>`;
+  }).join("");
+  $("xpbar").style.width=Math.min(100,s.xp/2)+"%";
+  $("barwrap").setAttribute("aria-valuenow",s.xp);
+  $("xptxt").textContent=s.xp+" XP";
+  $("lvl").textContent="Level "+(1+Math.floor(s.xp/50));
+  $("hearts").textContent="♥".repeat(Math.max(s.hp,0))+"♡".repeat(3-Math.max(s.hp,0));
+}
+draw();
+</script>
+</body>
+</html>
